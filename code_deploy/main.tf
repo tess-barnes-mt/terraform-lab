@@ -12,6 +12,15 @@ resource "aws_s3_bucket" "example" {
   force_destroy = "true"
 }
 
+resource "aws_s3_bucket_public_access_block" "private" {
+  bucket = aws_s3_bucket.example.id
+
+  block_public_acls   = true
+  ignore_public_acls = true
+  block_public_policy = false
+  restrict_public_buckets = false
+}
+
 resource "aws_iam_instance_profile" "tess_test_ec2_profile" {
   name = "tess_test_ec2_profile"
   role = var.ec2-role
